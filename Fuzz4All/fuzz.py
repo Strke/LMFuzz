@@ -106,7 +106,7 @@ def fuzz(
 
                         err_loop_count = err_loop_count + 1
                         # err_fix修复file_name中的代码文件，并且保存到file_name中
-                        err_fix(target.fix_model, target.fix_tokenizer, file_name, message)
+                        fo = err_fix(target.fix_model, target.fix_tokenizer, file_name, message)
                         f_result, message = target.validate_individual(file_name)
                         #如果修复了，修复程序数量加1
                         print("///////////////////////////////////////////////")
@@ -118,6 +118,9 @@ def fuzz(
                     target.parse_validation_message(f_result, message, file_name)
                     prev.append((f_result, fo))
             target.update(prev=prev)
+            print("target.prompt is : ########################################\n")
+            print(target.prompt)
+            print("#################################################################\n")
             #"""first-fuzzer
             print("################################################################################")
             print("\nAll programs: {}, err programs: {}, successful fixed programs: {}\n".format(all_programs, err_programs, fixed_programs))

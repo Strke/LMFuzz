@@ -90,45 +90,8 @@ def grab_max_min_average(points):
 def plot_c_full_run():
     # figure size
     plt.figure(figsize=(6, 4))
+    plt.title("(a) gcc")
 
-    # folders = [
-    #     f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev/",
-    #     f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-2/",
-    #     f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-3/",
-    #     f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-4/",
-    #     f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-5/",
-    # ]
-
-    # points = []
-    # for folder in folders:
-    #     with open(f"{folder}/coverage.csv", "r") as f:
-    #         lines = f.readlines()
-    #     if "4" in folder:
-    #         line_cov, time, _ = grab_line_cov(
-    #             lines, change_time=True, increase_index=False
-    #         )
-    #     else:
-    #         line_cov, time, _ = grab_line_cov(lines)
-    #     line_cov = extrapolate_points(line_cov, time, [i for i in range(0, 25)])
-    #     points.append(line_cov)
-
-    # max_points, min_points, average_points = grab_max_min_average(points)
-    # plt.plot(
-    #     [i for i in range(0, 25)],
-    #     average_points,
-    #     label="GrayC",
-    #     linewidth=2,
-    #     marker="v",
-    #     markersize=4,
-    # )
-    # plt.fill_between(
-    #     [i for i in range(0, 25)], min_points, max_points, alpha=0.2, color="blue"
-    # )
-
-    # # horizontal line
-    # plt.axhline(
-    #     y=155765 / 1000, color="#5A5B9F", linestyle="--", label="seed", linewidth=2
-    # )
 
     folders = [
         f"{BASE_DIR}full_run/c-change/std",
@@ -161,7 +124,7 @@ def plot_c_full_run():
         marker="*",
         markersize=8,
     )
-    plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="blue")
+    # plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="blue")
 
     folders = [
         f"{BASE_DIR}full_run/c/std",
@@ -194,32 +157,74 @@ def plot_c_full_run():
         marker="*",
         markersize=8,
     )
-    plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="salmon")
+    # plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="salmon")
 
 
 
-    # folders = [
-    #     f"{BASE_DIR}full_run/csmith/run-24-c/",
-    #     f"{BASE_DIR}full_run/csmith/run-24-c-2/",
-    #     f"{BASE_DIR}full_run/csmith/run-24-c-3/",
-    #     f"{BASE_DIR}full_run/csmith/run-24-c-4/",
-    #     f"{BASE_DIR}full_run/csmith/run-24-c-5/",
-    # ]
-    # points = []
+    folders = [
+        f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev/",
+        f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-2/",
+        f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-3/",
+        f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-4/",
+        f"{BASE_DIR}full_run/GrayC/fuzzer-output-directory-prev-5/",
+    ]
 
-    # for folder in folders:
-    #     with open(f"{folder}coverage.csv", "r") as f:
-    #         lines = f.readlines()
+    points = []
+    for folder in folders:
+        with open(f"{folder}/coverage.csv", "r") as f:
+            lines = f.readlines()
+        if "4" in folder:
+            line_cov, time, _ = grab_line_cov(
+                lines, change_time=True, increase_index=False
+            )
+        else:
+            line_cov, time, _ = grab_line_cov(lines)
+        line_cov = extrapolate_points(line_cov, time, [i for i in range(0, 25)])
+        points.append(line_cov)
 
-    #     lines.insert(0, "0,0,0,0\n")
-    #     line_cov, time, _ = grab_line_cov(lines, change_time=True, increase_index=False)
-    #     line_cov = extrapolate_points(line_cov, time, new_time)
-    #     points.append(line_cov)
-
-    # max_points, min_points, average_points = grab_max_min_average(points)
-    # plt.plot(
-    #     new_time, average_points, label="Csmith", linewidth=2, marker="^", markersize=4
+    max_points, min_points, average_points = grab_max_min_average(points)
+    plt.plot(
+        [i for i in range(0, 25)],
+        average_points,
+        label="GrayC",
+        linewidth=2,
+        marker="v",
+        markersize=4,
+    )
+    # plt.fill_between(
+    #     [i for i in range(0, 25)], min_points, max_points, alpha=0.2, color="blue"
     # )
+
+    # # horizontal line
+    # plt.axhline(
+    #     y=155765 / 1000, color="#5A5B9F", linestyle="--", label="seed", linewidth=2
+    # )
+
+
+
+
+    folders = [
+        f"{BASE_DIR}full_run/csmith/run-24-c/",
+        f"{BASE_DIR}full_run/csmith/run-24-c-2/",
+        f"{BASE_DIR}full_run/csmith/run-24-c-3/",
+        f"{BASE_DIR}full_run/csmith/run-24-c-4/",
+        f"{BASE_DIR}full_run/csmith/run-24-c-5/",
+    ]
+    points = []
+
+    for folder in folders:
+        with open(f"{folder}coverage.csv", "r") as f:
+            lines = f.readlines()
+
+        lines.insert(0, "0,0,0,0\n")
+        line_cov, time, _ = grab_line_cov(lines, change_time=True, increase_index=False)
+        line_cov = extrapolate_points(line_cov, time, new_time)
+        points.append(line_cov)
+
+    max_points, min_points, average_points = grab_max_min_average(points)
+    plt.plot(
+        new_time, average_points, label="Csmith", linewidth=2, marker="^", markersize=4
+    )
     # plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="green")
 
     plt.xlabel("Hours")
@@ -237,37 +242,13 @@ def plot_c_full_run():
 def plot_cpp_full_run():
     # figure size
     plt.figure(figsize=(6, 4))
+    plt.title("(b) g++")
 
     new_time = [i for i in range(1, 25)]
     # insert 0.5 at the beginning
     new_time.insert(0, 0.5)
     points = []
-    # folders = [
-    #     f"{BASE_DIR}full_run/yarpgen/run_24_2/",
-    #     f"{BASE_DIR}full_run/yarpgen/run_24_3/",
-    #     f"{BASE_DIR}full_run/yarpgen/run_24_4/",
-    #     f"{BASE_DIR}full_run/yarpgen/run_24_5/",
-    # ]
-    # for folder in folders:
-    #     with open(f"{folder}coverage.csv", "r") as f:
-    #         lines = f.readlines()
 
-    #     lines.insert(0, "0,0,0,0\n")
-    #     if "_3" in folder or "_4" in folder:
-    #         line_cov, time, _ = grab_line_cov(
-    #             lines, change_time=True, increase_index=False
-    #         )
-    #     else:
-    #         line_cov, time, _ = grab_line_cov(lines)
-
-    #     line_cov = extrapolate_points(line_cov, time, new_time)
-    #     points.append(line_cov)
-
-    # max_points, min_points, average_points = grab_max_min_average(points)
-    # plt.plot(
-    #     new_time, average_points, label="YarpGen", linewidth=2, marker="v", markersize=4
-    # )
-    # plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="blue")
 
     folders = [
         f"{BASE_DIR}full_run/cpp-change/cpp_23",
@@ -334,6 +315,36 @@ def plot_cpp_full_run():
     )
     plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="salmon")
 
+    folders = [
+        f"{BASE_DIR}full_run/yarpgen/run_24/",
+        f"{BASE_DIR}full_run/yarpgen/run_24_2/",
+        f"{BASE_DIR}full_run/yarpgen/run_24_3/",
+        f"{BASE_DIR}full_run/yarpgen/run_24_4/",
+        f"{BASE_DIR}full_run/yarpgen/run_24_5/",
+    ]
+    points = []
+    for folder in folders:
+        with open(f"{folder}coverage.csv", "r") as f:
+            lines = f.readlines()
+
+        lines.insert(0, "0,0,0,0\n")
+        if "_3" in folder or "_4" in folder:
+            line_cov, time, _ = grab_line_cov(
+                lines, change_time=True, increase_index=False
+            )
+        else:
+            line_cov, time, _ = grab_line_cov(lines)
+
+        line_cov = extrapolate_points(line_cov, time, new_time)
+        points.append(line_cov)
+
+    max_points, min_points, average_points = grab_max_min_average(points)
+    plt.plot(
+        new_time, average_points, label="YarpGen", linewidth=2, marker="v", markersize=4
+    )
+    #plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="blue")
+
+
     plt.xlabel("Hours")
     plt.ylabel("Coverage (#K lines)")
     # plt.title(title)
@@ -349,7 +360,8 @@ def plot_cpp_full_run():
 def plot_smt_full_run():
     # figure size
     plt.figure(figsize=(6, 4))
-    
+    plt.title("(c) cvc5")
+
     folders = [
         f"{BASE_DIR}full_run/smt2-change/general_strategy",
         f"{BASE_DIR}full_run/smt2-change/general_strategy_2",
@@ -378,33 +390,7 @@ def plot_smt_full_run():
         [i for i in range(0, 25)], min_points, max_points, alpha=0.2, color="green"
     )
 
-    # folders = [
-    #     f"{BASE_DIR}full_run/typefuzz/run",
-    #     f"{BASE_DIR}full_run/typefuzz/run_2",
-    #     f"{BASE_DIR}full_run/typefuzz/run_3",
-    #     f"{BASE_DIR}full_run/typefuzz/run_4",
-    #     f"{BASE_DIR}full_run/typefuzz/run_5",
-    # ]
-    # points = []
-    # for folder in folders:
-    #     with open(f"{folder}/coverage.txt", "r") as f:
-    #         lines = f.readlines()
-    #     line_cov, time, _ = grab_line_cov(lines, change_time=True, increase_index=False)
-    #     line_cov = extrapolate_points(line_cov, time, [i for i in range(0, 25)])
-    #     points.append(line_cov)
 
-    # max_points, min_points, average_points = grab_max_min_average(points)
-    # plt.plot(
-    #     [i for i in range(0, 25)],
-    #     average_points,
-    #     label="TypeFuzz",
-    #     linewidth=2,
-    #     marker="v",
-    #     markersize=4,
-    # )
-    # plt.fill_between(
-    #     [i for i in range(0, 25)], min_points, max_points, alpha=0.2, color="blue"
-    # )
 
     folders = [
         f"{BASE_DIR}full_run/smt2/general_strategy",
@@ -438,6 +424,36 @@ def plot_smt_full_run():
     )
     plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="salmon")
 
+    folders = [
+        f"{BASE_DIR}full_run/typefuzz/run",
+        f"{BASE_DIR}full_run/typefuzz/run_2",
+        f"{BASE_DIR}full_run/typefuzz/run_3",
+        f"{BASE_DIR}full_run/typefuzz/run_4",
+        f"{BASE_DIR}full_run/typefuzz/run_5",
+    ]
+    points = []
+    for folder in folders:
+        with open(f"{folder}/coverage.txt", "r") as f:
+            lines = f.readlines()
+        line_cov, time, _ = grab_line_cov(lines, change_time=True, increase_index=False)
+        line_cov = extrapolate_points(line_cov, time, [i for i in range(0, 25)])
+        points.append(line_cov)
+
+    max_points, min_points, average_points = grab_max_min_average(points)
+    plt.plot(
+        [i for i in range(0, 25)],
+        average_points,
+        label="TypeFuzz",
+        linewidth=2,
+        marker="v",
+        markersize=4,
+    )
+    plt.fill_between(
+        [i for i in range(0, 25)], min_points, max_points, alpha=0.2, color="blue"
+    )
+
+
+
     # horizontal line
     #plt.axhline(
     #    y=44113 / 1000, color="#5A5B9F", linestyle="--", label="seed", linewidth=2
@@ -458,33 +474,9 @@ def plot_smt_full_run():
 def plot_go_full_run():
     # figure size
     plt.figure(figsize=(6, 4))
+    plt.title("(d) go")
     points = []
-    # folders = [
-    #     f"{BASE_DIR}full_run/go-fuzz/run_1",
-    #     f"{BASE_DIR}full_run/go-fuzz/run_2",
-    #     f"{BASE_DIR}full_run/go-fuzz/run_3",
-    #     f"{BASE_DIR}full_run/go-fuzz/run_4",
-    #     f"{BASE_DIR}full_run/go-fuzz/run_5",
-    # ]
-    # for folder in folders:
-    #     with open(f"{folder}/coverage.csv", "r") as f:
-    #         lines = f.readlines()
-    #     line_cov, time, _ = grab_line_cov(lines, change_time=True, increase_index=False)
-    #     line_cov = extrapolate_points(line_cov, time, [i for i in range(0, 25)])
-    #     points.append(line_cov)
 
-    # max_points, min_points, average_points = grab_max_min_average(points)
-    # plt.plot(
-    #     [i for i in range(0, 25)],
-    #     average_points,
-    #     label="go-fuzz",
-    #     linewidth=2,
-    #     marker="v",
-    #     markersize=4,
-    # )
-    # plt.fill_between(
-    #     [i for i in range(0, 25)], min_points, max_points, alpha=0.2, color="blue"
-    # )
     folders = [
         f"{BASE_DIR}full_run/go-change/run",
         f"{BASE_DIR}full_run/go-change/run_2",
@@ -547,6 +539,36 @@ def plot_go_full_run():
         markersize=8,
     )
     plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="salmon")
+
+
+    points = []
+    folders = [
+        f"{BASE_DIR}full_run/go-fuzz/run_1",
+        f"{BASE_DIR}full_run/go-fuzz/run_2",
+        f"{BASE_DIR}full_run/go-fuzz/run_3",
+        f"{BASE_DIR}full_run/go-fuzz/run_4",
+        f"{BASE_DIR}full_run/go-fuzz/run_5",
+    ]
+    for folder in folders:
+        with open(f"{folder}/coverage.csv", "r") as f:
+            lines = f.readlines()
+        line_cov, time, _ = grab_line_cov(lines, change_time=True, increase_index=False)
+        line_cov = extrapolate_points(line_cov, time, [i for i in range(0, 25)])
+        points.append(line_cov)
+
+    max_points, min_points, average_points = grab_max_min_average(points)
+    plt.plot(
+        [i for i in range(0, 25)],
+        average_points,
+        label="go-fuzz",
+        linewidth=2,
+        marker="v",
+        markersize=4,
+    )
+    plt.fill_between(
+        [i for i in range(0, 25)], min_points, max_points, alpha=0.2, color="blue"
+    )
+
 
     # horizontal line
     # plt.axhline(
@@ -645,33 +667,12 @@ def plot_java_full_run():
 
 def plot_qiskit_full_run():
     plt.figure(figsize=(6, 4))
+    plt.title("(e) qiskit")
+
     new_time = [i for i in range(1, 25)]
     points = []
     new_time.insert(0, 0.5)
-    # folders = [
-    #     f"{BASE_DIR}full_run/morphq/run_1",
-    #     f"{BASE_DIR}full_run/morphq/run_2",
-    #     f"{BASE_DIR}full_run/morphq/run_3",
-    #     f"{BASE_DIR}full_run/morphq/run_4",
-    #     f"{BASE_DIR}full_run/morphq/run_5",
-    # ]
-    # for folder in folders:
-    #     with open(f"{folder}/coverage.csv", "r") as f:
-    #         lines = f.readlines()
-    #     lines.insert(0, "0,0,0,0\n")
-    #     line_cov, _, time = grab_line_cov(lines, change_time=True, increase_index=False)
-    #     # sort line_cov based on time
-    #     line_cov = [x * 90417 for _, x in sorted(zip(time, line_cov))]
-    #     # time is just
-    #     time = [(index + 1) * 24 / len(lines) for index in range(len(lines))]
-    #     line_cov = extrapolate_points(line_cov, time, new_time)
-    #     points.append(line_cov)
 
-    # max_points, min_points, average_points = grab_max_min_average(points)
-    # plt.plot(
-    #     new_time, average_points, label="MorphQ", linewidth=2, marker="v", markersize=4
-    # )
-    # plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="blue")
 
     folders = [
         f"{BASE_DIR}/full_run/qiskit-change/run_opt_and_qasm",
@@ -747,6 +748,34 @@ def plot_qiskit_full_run():
         markersize=8,
     )
     plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="salmon")
+
+    folders = [
+        f"{BASE_DIR}full_run/morphq/run_1",
+        f"{BASE_DIR}full_run/morphq/run_2",
+        f"{BASE_DIR}full_run/morphq/run_3",
+        f"{BASE_DIR}full_run/morphq/run_4",
+        f"{BASE_DIR}full_run/morphq/run_5",
+    ]
+    points = []
+    for folder in folders:
+        with open(f"{folder}/coverage.csv", "r") as f:
+            lines = f.readlines()
+        lines.insert(0, "0,0,0,0\n")
+        line_cov, _, time = grab_line_cov(lines, change_time=True, increase_index=False)
+        # sort line_cov based on time
+        line_cov = [x * 90417 for _, x in sorted(zip(time, line_cov))]
+        # time is just
+        time = [(index + 1) * 24 / len(lines) for index in range(len(lines))]
+        line_cov = extrapolate_points(line_cov, time, new_time)
+        points.append(line_cov)
+
+    max_points, min_points, average_points = grab_max_min_average(points)
+    plt.plot(
+        new_time, average_points, label="MorphQ", linewidth=2, marker="v", markersize=4
+    )
+    #plt.fill_between(new_time, min_points, max_points, alpha=0.2, color="blue")
+
+
 
     plt.xlabel("Hours")
     plt.ylabel("Coverage (#K lines)")

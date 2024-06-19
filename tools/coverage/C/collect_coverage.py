@@ -154,7 +154,7 @@ def coverage_loop(args):
 
         print(f"Total valid: {num_valid}")
         with open(args.folder + "/valid.txt", "w") as f:
-            f.write(str(num_valid))
+            f.write(str(num_valid) + "\n")
             f.write(str(num_valid / index))
 
 

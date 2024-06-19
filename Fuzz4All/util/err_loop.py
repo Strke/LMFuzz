@@ -64,8 +64,8 @@ def err_fix(model, tokenizer, file_name, message: str):
         {"role": "system", 
         "content": 
             '''
-            Give me one code and fixing errors in code. 
-            Code and its error are linked by token <code2err>.
+            Your task now is to fix the bug in the code.
+            Code and its error are separated by token <code2err>.
             '''
         },
         {"role": "user", "content":user_content},
@@ -96,5 +96,6 @@ def err_fix(model, tokenizer, file_name, message: str):
     
     #把大模型修改后的代码写回到.fuzz文件中
     write_string_to_file(file_name, out_text)
+    return out_text
 
 

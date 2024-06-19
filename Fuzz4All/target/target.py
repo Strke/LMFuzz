@@ -340,13 +340,16 @@ class Target(object):
     2-->表示生成语义变化的程序
     这里使用多臂老虎机算法进行改进
     """
-    """
+    # """
     # 多臂老虎机模块算法
     def update_strategy(self, new_code: str) -> str:
-        mutator = GA(num_generated = 1)
+        mutator = GA(num_generated = 1, mutator_set="nogenerate-new")
 
         while 1:
             strategy = mutator._select_mutator()
+            print("**********************************************")
+            print("strategy:", strategy)
+            print("**********************************************")
             # generate new code using separator
             if strategy == 'generete-new':
                 return f"\n{new_code}\n{self.prompt_used['separator']}\n"
@@ -364,7 +367,18 @@ class Target(object):
 
     #原代码
     def update_strategy(self, new_code: str) -> str:
-
+        print("self.initial_prompt is : ########################################\n")
+        print(self.initial_prompt)
+        print("#################################################################\n")
+        print("self.prompt_used['separator'] is : ##############################\n")
+        print(self.prompt_used['separator'])
+        print("#################################################################\n")
+        print("new_code is : ###################################################\n")
+        print(new_code)
+        print("#################################################################\n")
+        print("self.prompt_used[\"begin\"] is : ################################\n")
+        print(self.prompt_used["begin"])
+        print("#################################################################\n")
         while 1:
             strategy = random.randint(0, self.p_strategy)
             # generate new code using separator

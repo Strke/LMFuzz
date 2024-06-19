@@ -153,7 +153,7 @@ def coverage_loop(args):
         # loop through all files in folder in alphanumeric order
         files = glob.glob(args.folder + "/*.fuzz")
         files.sort(key=natural_sort_key)
-        index = 0
+        index = 1
         vaild_count = 0
         for file in p.track(files):
             # skip until start
@@ -167,8 +167,10 @@ def coverage_loop(args):
             print("valid_count: {}".format(vaild_count))
             print("#########################################3\n")
             srcvalid = "#########################################3\n"+"valid_count: {}".format(vaild_count)+"#########################################3\n"
-            with open("/home/valid/go-valid.txt", "w") as f:
-                f.write(srcvalid)
+            print(f"Total valid: {vaild_count}")
+            with open(args.folder + "/valid.txt", "w") as f:
+                f.write(str(vaild_count) + "\n")
+                f.write(str(vaild_count / index))
 
 
             if index + 1 >= args.end:

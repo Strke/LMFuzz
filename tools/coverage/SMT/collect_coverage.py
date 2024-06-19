@@ -118,7 +118,7 @@ def coverage_loop(args):
         with open(args.folder + "/coverage.csv", "a") as f:
             f.write(f"{index + 1},{line_cov},{func_cov},{time_seconds}\n")
 
-        with open(args.folder + "/valid.txt", "a") as f:
+        with open(args.folder + "/valid.txt", "w") as f:
             f.write(str(num_valid) + "\n")
             f.write(str(num_valid / total))
 

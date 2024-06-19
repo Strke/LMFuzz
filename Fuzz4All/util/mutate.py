@@ -5,7 +5,7 @@ class GA(object):
     def __init__(
         self,
         num_generated,
-        mutator_selection_algo="heuristic",
+        mutator_selection_algo="ts",
         use_single_mutator=False,
         replace_type=None,
         mutator_set="all",
